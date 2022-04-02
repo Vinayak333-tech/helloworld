@@ -1,14 +1,22 @@
 pipeline{
-    agent any
-    
+  agent any  
+  environment {
+    NEW_VERSION = '0.1.0'
+  }
   stages{
        stage("build"){
+         when {
+           expression {
+              BRANCH_NAME == 'main'
+           }
+         }
          steps{
-           echo "building the aplication"
+           echo "building version ${NEW_VERSION}"
+           echo 'building version ${NEW_VERSION}'
          }
        }
         stage("test"){
-         steps{
+         steps{ 
            echo "testing the aplication"
          }
        }
@@ -18,4 +26,5 @@ pipeline{
          }
        }
   }
+
 }
